@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"kok/common"
 	"kok/model"
+	"kok/response"
 	"net/http"
 	"strings"
 )
@@ -16,7 +17,7 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		//validate token formate
 		if tokenString == "" || !strings.HasPrefix(tokenString, "Bearer ") {
-			c.JSON(http.StatusUnauthorized, gin.H{"code": 401, "msg": "no have power！"})
+			response.Rseponse(c, http.StatusUnauthorized, 401, nil, "no have power！")
 			c.Abort()
 			return
 		}
@@ -24,7 +25,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		tokenString = tokenString[7:]
 		token, claims, err := common.ParseToken(tokenString)
 		if err != nil || !token.Valid {
-			c.JSON(http.StatusUnauthorized, gin.H{"code": 401, "msg": "Token is invalid！"})
+			response.Rseponse(c, http.StatusUnauthorized, 401, nil, "Token is invalid！")
 			c.Abort()
 			return
 		}
@@ -36,7 +37,7 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		//用户不存在
 		if user.ID == 0 {
-			c.JSON(http.StatusUnauthorized, gin.H{"code": 401, "msg": "user not exist！"})
+			response.Rseponse(c, http.StatusUnauthorized, 401, nil, "user not exist！")
 			c.Abort()
 			return
 		}
