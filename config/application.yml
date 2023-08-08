@@ -1,0 +1,10 @@
+server:
+  port:               #程序运行端口
+datasource:
+  driverName: mysql   #数据库类型
+  host: localhost     #数据库地址
+  port: 3306          #数据库端口
+  database: kok       #数据库名称
+  username: root      #数据库用户名
+  password: 123456    #数据库密码
+  charset: utf8       #数据库编码方式
