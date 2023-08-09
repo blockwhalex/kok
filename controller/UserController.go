@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	uuid2 "github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 	"kok/common"
@@ -21,6 +22,8 @@ func Register(c *gin.Context) {
 	name := c.PostForm("name")
 	telephone := c.PostForm("telephone")
 	password := c.PostForm("password")
+	email := c.PostForm("email")
+	uuid := uuid2.New().String()
 	//数据验证
 	if len(telephone) != 11 {
 		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "手机号必须为11位")
@@ -30,6 +33,10 @@ func Register(c *gin.Context) {
 		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "密码必须大于6位")
 		return
 	}
+	if len(email) < 1 {
+		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "邮箱不能为空")
+		return
+	}
 	//如果用户名为空，给一个10位的随机字符串
 	if len(name) == 0 {
 		name = util.RandomString(10)
@@ -37,7 +44,12 @@ func Register(c *gin.Context) {
 
 	//判断手机号码是否存在
 	if isTelephoneExist(DB, telephone) {
-		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "用户已存在")
+		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "手机号已注册")
+		return
+	}
+	//判断邮箱是否存在
+	if isEmailExist(DB, email) {
+		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "邮箱已注册")
 		return
 	}
 	//创建用户
@@ -49,7 +61,9 @@ func Register(c *gin.Context) {
 	newUser := model.User{
 		Name:      name,
 		Telephone: telephone,
+		Email:     email,
 		Password:  string(hasedPassword),
+		UUID:      uuid,
 	}
 	//数据库新增操作
 	DB.Create(&newUser)
@@ -63,22 +77,21 @@ func Login(c *gin.Context) {
 	//获取参数
 	telephone := c.PostForm("telephone")
 	password := c.PostForm("password")
-	log.Print(telephone + "," + password)
 	//数据验证
 	if len(telephone) != 11 {
-		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "手机号必须为11位")
+		response.Rseponse(c, http.StatusOK, 422, nil, "手机号必须为11位")
 		return
 	}
 	//手机号是否存在
 	var user model.User
 	DB.Where("Telephone = ?", telephone).First(&user)
 	if user.ID == 0 {
-		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "该用户尚未注册")
+		response.Rseponse(c, http.StatusOK, 422, nil, "该用户尚未注册")
 		return
 	}
 	//判断密码是否正确
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
-		response.Rseponse(c, http.StatusBadRequest, 400, nil, "密码错误")
+		response.Rseponse(c, http.StatusOK, 400, nil, "密码错误")
 		return
 	}
 	//发放token
@@ -102,6 +115,16 @@ func Info(c *gin.Context) {
 func isTelephoneExist(db *gorm.DB, telephone string) bool {
 	var user model.User
 	db.Where("Telephone = ?", telephone).First(&user)
+	if user.ID != 0 {
+		return true
+	}
+	return false
+}
+
+// 判断邮箱是否已存在
+func isEmailExist(db *gorm.DB, email string) bool {
+	var user model.User
+	db.Where("Email = ?", email).First(&user)
 	if user.ID != 0 {
 		return true
 	}

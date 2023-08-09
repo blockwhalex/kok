@@ -13,6 +13,7 @@ func main() {
 	sqldb, _ := db.DB()   //实例化DB()函数
 	defer sqldb.Close()   //延迟关闭数据库连接
 	r := gin.Default()    //默认路由分组
+	r.Use(Cors())         //开启中间件 允许使用跨域请求
 	r = CollectRoute(r)   //路由对象更新
 	port := viper.GetString("server.port")
 	if port != "" {
