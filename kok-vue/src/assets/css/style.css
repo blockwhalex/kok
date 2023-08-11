@@ -1,0 +1,289 @@
+* {
+  padding: 0;
+  margin: 0;
+  /* font-family: 'Noto Sans JP', sans-serif; */
+  font-family: 'REM', sans-serif;
+}
+
+.content {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(186, 205, 226, 0.849);
+  position: relative;
+}
+
+.content .login-wrapper {
+  width: 70vw;
+  height: 80vh;
+  background-color: #ffffffe5;
+  border-radius: 30px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+
+.container-change {
+  width: 35vw;
+  height: 80vh;
+  border-radius: 30px;
+  position: absolute;
+  z-index: 1;
+  transition: left 1s ease; /* 添加过渡效果，使移动更平滑 */
+}
+
+.left-register-form , .right-login-form {
+  flex: 1;
+  position: relative;
+}
+
+.content .login-wrapper .left-img .glass .tips h1 {
+  margin: 15px 0;
+}
+.content .login-wrapper .left-img .glass .tips span {
+  margin: 5px 0;
+  display: block;
+  font-weight: 100;
+}
+
+.content .login-wrapper .right-login-form .right-form-wrapper {
+  position: absolute;
+  width: 70%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.content .login-wrapper .left-register-form .left-form-wrapper {
+  position: absolute;
+  width: 70%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.content .login-wrapper .right-login-form .right-form-wrapper h1 {
+  font-size: 30px;
+  text-align: center;
+}
+
+.content .login-wrapper .left-register-form .left-form-wrapper h1 {
+  font-size: 30px;
+  text-align: center;
+}
+
+.content .login-wrapper .right-login-form .right-form-wrapper .err {
+  color: rgba(219, 46, 46, 0.863);
+  font-size: 16px;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.content .login-wrapper .left-register-form .left-form-wrapper .err {
+  color: rgba(219, 46, 46, 0.863);
+  font-size: 16px;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.content .login-wrapper .right-login-form .right-form-wrapper .input-items {
+  margin: 20px 0;
+}
+.content .login-wrapper .right-login-form .right-form-wrapper .input-items .input-tips {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  margin: 10px 0;
+}
+.content .login-wrapper .right-login-form .right-form-wrapper .input-items .inputs {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid rgb(227, 227, 227);
+  padding: 20px;
+  box-sizing: border-box;
+  outline: none;
+  transition: 0.5s;
+  font-size: 18px;
+}
+.content .login-wrapper .right-login-form .right-form-wrapper .input-items .inputs:focus {
+  border: 1px solid rgb(117, 146, 180);
+}
+
+.content .login-wrapper .left-register-form .left-form-wrapper .input-items {
+  margin: 18px 0;
+}
+.content .login-wrapper .left-register-form .left-form-wrapper .input-items .input-tips {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  margin: 10px 0;
+}
+.content .login-wrapper .left-register-form .left-form-wrapper .input-items .inputs {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid rgb(227, 227, 227);
+  padding: 20px;
+  box-sizing: border-box;
+  outline: none;
+  transition: 0.5s;
+  font-size: 18px;
+}
+.content .login-wrapper .left-register-form .left-form-wrapper .input-items .inputs:focus {
+  border: 1px solid rgb(117, 146, 180);
+}
+
+.content .login-wrapper .right-login-form .right-form-wrapper .forgot {
+  float: right;
+  font-weight: 600;
+  text-align: right;
+  margin: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  color: rgb(87, 135, 179);
+}
+.content .login-wrapper .right-login-form .right-form-wrapper .forgot:hover {
+  color: rgb(233, 68, 178);
+  text-decoration: underline;
+}
+
+.content .login-wrapper .right-login-form .right-form-wrapper .btn {
+  width: 100%;
+  height: 50px;
+  background-color: rgb(93, 145, 187);
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 25px;
+  margin: 20px 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.content .login-wrapper .right-login-form .right-form-wrapper .btn:hover {
+  background-color: rgb(35, 67, 94);
+}
+
+.content .login-wrapper .left-register-form .left-form-wrapper .btn:hover {
+  background-color: rgb(35, 67, 94);
+}
+
+.content .login-wrapper .left-register-form .left-form-wrapper .btn {
+  width: 100%;
+  height: 50px;
+  background-color: rgb(93, 145, 187);
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 25px;
+  margin: 20px 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.content .login-wrapper .right-login-form .right-form-wrapper .siginup-tips {
+  text-align: center;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.content .login-wrapper .left-register-form .left-form-wrapper .login-tips {
+  text-align: center;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.content .login-wrapper .right-login-form .right-form-wrapper .siginup-tips .SingupButton {
+  color: rgb(87, 135, 179);
+  cursor: pointer;
+}
+
+.content .login-wrapper .right-login-form .right-form-wrapper .siginup-tips .SingupButton:hover {
+  color: rgb(233, 68, 178);
+  text-decoration: underline;
+}
+
+.content .login-wrapper .left-register-form .left-form-wrapper .login-tips .LoginButton {
+  color: rgb(87, 135, 179);
+  cursor: pointer;
+}
+
+.content .login-wrapper .left-register-form .left-form-wrapper .login-tips .LoginButton:hover {
+  color: rgb(233, 68, 178);
+  text-decoration: underline;
+}
+
+.content .login-wrapper .right-login-form .right-form-wrapper .other-login .divider {
+  width: 100%;
+  margin: 20px 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.content .login-wrapper .right-login-form .right-form-wrapper .other-login .divider .line {
+  display: inline-block;
+  max-width: 35%;
+  width: 35%;
+  flex: 1;
+  height: 1px;
+  background-color: rgb(162, 172, 185);
+}
+.content .login-wrapper .right-login-form .right-form-wrapper .other-login .divider .divider-text {
+  vertical-align: middle;
+  margin: 0 20px;
+  display: inline-block;
+  width: 50px;
+  color: rgb(162, 172, 185);
+  white-space: normal;
+}
+.content .login-wrapper .right-login-form .right-form-wrapper .other-login .other-login-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content .login-wrapper .right-login-form .right-form-wrapper .other-login .other-login-wrapper .other-login-item {
+  width: 30px;
+  padding: 5px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: rgb(51, 49, 116);
+  margin: 0 10px;
+  transition: 0.4s;
+}
+.content .login-wrapper .right-login-form .right-form-wrapper .other-login .other-login-wrapper .other-login-item img {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+.content .login-wrapper .right-login-form .right-form-wrapper.other-login .other-login-wrapper .other-login-item span {
+  vertical-align: middle;
+}
+.content .login-wrapper .right-login-form .right-form-wrapper .other-login .other-login-wrapper .other-login-item:hover {
+  width: 50px;
+  height: 50%;
+  background-color: #fff;
+  border: 0;
+  box-shadow: 1px 10px 32px 1px rgba(175, 195, 221, 0.37);
+}
+
+@media (max-width: 1024px) {
+  .login-wrapper {
+    padding: 20px;
+  }
+  .login-wrapper .left-img {
+    display: none;
+  }
+  .login-wrapper .right-login-form {
+    padding: 20px;
+  }
+}/*# sourceMappingURL=style.css.map */

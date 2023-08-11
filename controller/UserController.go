@@ -26,15 +26,15 @@ func Register(c *gin.Context) {
 	uuid := uuid2.New().String()
 	//数据验证
 	if len(telephone) != 11 {
-		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "手机号必须为11位")
+		response.Rseponse(c, http.StatusOK, 422, nil, "手机号必须为11位")
 		return
 	}
 	if len(password) <= 6 {
-		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "密码必须大于6位")
+		response.Rseponse(c, http.StatusOK, 422, nil, "密码必须大于6位")
 		return
 	}
 	if len(email) < 1 {
-		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "邮箱不能为空")
+		response.Rseponse(c, http.StatusOK, 422, nil, "邮箱不能为空")
 		return
 	}
 	//如果用户名为空，给一个10位的随机字符串
@@ -44,18 +44,18 @@ func Register(c *gin.Context) {
 
 	//判断手机号码是否存在
 	if isTelephoneExist(DB, telephone) {
-		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "手机号已注册")
+		response.Rseponse(c, http.StatusOK, 422, nil, "手机号已注册")
 		return
 	}
 	//判断邮箱是否存在
 	if isEmailExist(DB, email) {
-		response.Rseponse(c, http.StatusUnprocessableEntity, 422, nil, "邮箱已注册")
+		response.Rseponse(c, http.StatusOK, 422, nil, "邮箱已注册")
 		return
 	}
 	//创建用户
 	hasedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		response.Rseponse(c, http.StatusInternalServerError, 500, nil, "加密错误")
+		response.Rseponse(c, http.StatusOK, 500, nil, "加密错误")
 		return
 	}
 	newUser := model.User{
@@ -75,16 +75,12 @@ func Register(c *gin.Context) {
 func Login(c *gin.Context) {
 	DB := common.GetDB()
 	//获取参数
-	telephone := c.PostForm("telephone")
+	email := c.PostForm("email")
 	password := c.PostForm("password")
 	//数据验证
-	if len(telephone) != 11 {
-		response.Rseponse(c, http.StatusOK, 422, nil, "手机号必须为11位")
-		return
-	}
-	//手机号是否存在
+	//邮箱是否存在
 	var user model.User
-	DB.Where("Telephone = ?", telephone).First(&user)
+	DB.Where("Email = ?", email).First(&user)
 	if user.ID == 0 {
 		response.Rseponse(c, http.StatusOK, 422, nil, "该用户尚未注册")
 		return
