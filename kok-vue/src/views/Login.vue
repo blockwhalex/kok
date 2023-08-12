@@ -3,6 +3,7 @@ import {ref} from 'vue';
 import axios from 'axios';
 import { ElMessage } from 'element-plus'
 import router from '@/router';
+import Cookies from 'js-cookie';
 
 const name = ref('') //用户名
 const loginemail = ref('') //登录邮箱
@@ -33,6 +34,8 @@ const login = async () => {
                         message : '登录成功',
                         type: 'success',
                     });
+                    
+                    Cookies.set("token",isLoginIn.data.data.token,{expires:7,path : '/'})
                     localStorage.setItem('isLoggedIn', 'true');
                     return setTimeout(() => {
                         router.replace('/home')
@@ -75,9 +78,8 @@ const register = async() =>{
                         message : '注册成功',
                         type: 'success',
                     });
-                    return setTimeout(() => {
-                        leftValue.value = '35vw'
-                    },1750);
+                      leftValue.value = '0'
+                      return
                     }
             }catch{
                     isLoading.value = false;
